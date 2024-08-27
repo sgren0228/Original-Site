@@ -1,0 +1,631 @@
+@charset "UTF-8";
+@use 'mixin' as m;
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: "Lato", sans-serif;
+}
+img {
+    max-width: 100%;
+}
+.wrapper {
+    max-width: 85%;
+    margin: 0 auto;
+    @include m.tab {
+        max-width: 95%;
+    }
+}
+.site-title {
+    width: 100%;
+    font-size: 2.5rem;
+    margin-top: 10px;
+    a {
+        color: #333;
+    }
+}
+.logo {
+    font-size: 2.5rem;
+    color: #333;
+}
+.sec-title {
+    text-align: center;
+}
+.sec-title-en {
+    display: block;
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+.sec-title-ja {
+    display: block;
+}
+.btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 30px;
+    color: #333;
+    border: 1px solid #ccc;
+    outline: none;
+    overflow: hidden;
+    font-weight: bold; 
+    &:hover {
+        color: #ccc;
+        border-color: transparent;
+        transition-delay: .6s;
+    }
+    span {
+        display: block;
+        z-index: 2;
+    }
+}
+.borderbottom {
+    &:hover::before {
+        height: 100%;
+        transition-delay: .4s;
+    }
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: -10;
+        width: 100%;
+        height: 0;
+        background: #333;
+        transition: all .3s;
+    }
+    span {
+    &::before{
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 0;
+        background: #333;
+        transition: all .3s;
+        left: 0;
+        bottom: 0;
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 0;
+        background: #333;
+        transition: all .3s;
+        right: 0;
+        bottom: 0;
+    }
+    &:hover::before {
+        height: 100%;
+    }
+    &:hover::after {
+        height: 100%;
+    }
+}
+}
+.btn-center {
+    text-align: center;
+}
+
+//header
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    z-index: 10;
+    .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        box-sizing: border-box;
+    }
+    .menu {
+        font-weight: bold;
+        display: flex;
+        margin-right: 40px;
+        @include m.tab {
+            display: none;
+        }
+        li {
+            margin-right: 24px;
+        }
+        a {
+            color: #333;
+        }
+    }
+}
+// ハンバーガーメニュー
+.openbtn {
+    position: fixed;
+    text-align: center;
+    width: 78px;
+    height: 100px;
+    top: 0px;
+    right: 8px;
+    line-height: 100px;
+    border-left: 1px solid #333;
+    padding-left: 8px;
+    z-index: 20;
+    cursor: pointer;
+    @include m.tab {
+        border-left: none;
+    }
+    span {
+        display: inline-block;
+        transition: all .4s;
+        position: absolute;
+        left: 25px;
+        height: 2px;
+        border-radius: 5px;
+        background: #333;
+        width: 45%;
+        &:nth-of-type(1) {
+            top: 32px;
+        }
+        &:nth-of-type(2) {
+            top: 39px;
+        }
+        &:nth-of-type(3) {
+            top: 46px;
+            &::after {
+                content: "Menu";
+                position: absolute;
+                top: -30px;
+                left: -2px;
+                color: #333;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+.active.openbtn {
+    span {
+        &:nth-of-type(1) {
+            top: 39px;
+            left: 35px;
+            transform: rotate(-45deg);
+            width: 30%;
+        }
+        &:nth-of-type(2) {
+            opacity: 0;
+        }
+        &:nth-of-type(3) {
+            top: 39px;
+            left: 35px;
+            transform: rotate(45deg);
+            width: 30%;
+            &::after {
+                content: "Close";
+                transform: translateY(0) rotate(-45deg);
+                top: -30px;
+                left: 4px;
+            }
+        }
+    }
+}
+#g-nav.panelactive{
+    position:fixed;
+    z-index: 10;
+	top: 0;
+    left: 0;
+	width:100%;
+    height: 100vh;
+}
+.circle-bg{
+    position: fixed;
+	z-index:3;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #FFA666;
+	transform: scale(0);
+	bottom:-50px;
+    left:calc(50% - 50px);
+    transition: all .6s;
+}
+.circle-bg.circleactive{
+	transform: scale(50);
+}
+#g-nav ul {
+	display: none;
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+#g-nav.panelactive ul {
+    display: block;
+}
+#g-nav.panelactive ul li{
+    animation-name:gnaviAnime;
+    animation-duration:1s;
+    animation-delay:.2s;
+    animation-fill-mode:forwards;
+    opacity:0;
+    }
+    @keyframes gnaviAnime{
+    0% {
+    opacity: 0;
+    }
+    100% {
+    opacity: 1;
+    }
+    }
+
+    #g-nav li{
+        text-align: center; 
+        list-style: none;
+    }
+    #g-nav li a{
+        color: #333;
+        text-decoration: none;
+        padding:10px;
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: bold;
+}
+
+// mainvisual
+.mainvisual {
+    width: 100%;
+    height: 80vh;
+    background-image: url("https://github.com/sgren0228/Original-Site/blob/main/img/mainvisual-min.jpg?raw=true");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    position: relative;
+    .main-title {
+        font-size: 4rem;
+        letter-spacing: 10px;
+        font-weight: bold;
+        position: absolute;
+        &:nth-child(1) {
+            bottom: 140px;
+        }
+        &:nth-child(2) {
+            bottom: 70px;
+        }
+        &:nth-child(3) {
+            bottom: 0;
+        }
+    }
+}
+
+// coffee
+#coffee {
+    margin-bottom: 80px;
+    .sec-title {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    @include m.tab {
+        grid-template-columns: repeat(1,1fr);
+    }
+    a{
+        transition: all .5s;
+        &:hover {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+    }
+    li {
+        height: 300px;
+        color: #333;
+        box-shadow:  0 0 20px #ccc;
+        @include m.tab {
+            height: 70vh;
+        }
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            @include m.tab {
+                height: 50vh;
+            }
+        }
+        .text {
+            margin-left: 20px;
+            margin-bottom: 25px;
+            .title {
+                margin-bottom: 25px;
+            }
+        }
+    }
+}
+
+// food
+#food {
+    margin-bottom: 80px;
+    .food-content {
+        display: flex;
+        @include m.tab {
+            flex-direction: column;
+        }
+        .food-right {
+            width: 45%;
+            @include m.tab {
+                width: 100%;
+            }
+            .food-img {
+                width: 100%;
+                height: 350px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .food-text {
+                padding: 20px 25px;
+                .food-title {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 0.875rem;
+                    font-weight: bold;
+                    line-height: 1.5;
+                }
+            }
+        }
+        .food-left {
+            text-align: center;
+            width: 45%;
+            @include m.tab {
+                width: 100%;
+            }
+            .sec-title {
+                margin: 80px 0;
+            }
+            .btn {
+                @include m.tab {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+}
+// food-item
+.food-item {
+    padding-top: 150px;
+    padding: 150px 7% 80px;
+    .sec-title {
+        margin-bottom: 80px;
+    }
+}
+// special
+#special {
+    margin-bottom: 80px;
+    .sec-title {
+        margin-bottom: 80px;
+    }
+    .special-content {
+        display: flex;
+        justify-content: space-between;
+        @include m.tab {
+            flex-direction: column;
+        }
+    }
+    .special-img {
+        width: 45%;
+        height: 350px;
+        margin-right: -80px;
+        @include m.tab {
+            width: 100%;
+            height: 100%;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 100%;
+            object-fit: cover;
+            vertical-align: bottom;
+        }
+    }
+    .special-text {
+        width: 40%;
+        background-color: #fff;
+        box-shadow:  0 0 20px #ccc;
+        margin: 80px 0 0 -120px;
+        position: relative;
+        @include m.tab {
+            width: 100%;
+            margin: 0;
+        }
+        .text-inner {
+            padding: 50px 40px;
+        }
+        &::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-color: #f3f3f3;
+            position: absolute;
+            top: -10%;
+            left: -70%;
+            z-index: -10;
+            @include m.tab {
+                display: none;
+            }
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 54px;
+        }
+        .explain {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            padding: 0 20px;
+            margin-bottom: 80px;
+        }
+    }
+}
+
+// contact
+#contact {
+    border-top: 1px solid #333;
+    .contact-content {
+        margin: 40px auto;
+        .sec-title {
+            margin-bottom: 80px;
+            position: relative;
+            &::after {
+                content: "TEL:080-0000-0000";
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+        .flex-item {
+            display: flex;
+            justify-content: space-between;
+            .menu {
+                font-weight: bold;
+                display: flex;
+                margin-bottom: 80px;
+                li {
+                    margin-right: 24px;
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+                }
+                a {
+                    color: #333;
+                }
+            } 
+        }
+    }
+}
+
+// footer
+#footer {
+    .copyright {
+        color: #333;
+        font-size: 0.875rem;
+        text-align: right;
+        margin: 0 150px 20px;
+    }   
+}
+
+// fadein
+.fadeIn {
+    animation-name: fadeInAnime;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+@keyframes fadeInAnime {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.fadeInTrigger {
+    opacity: 0;
+}
+
+// bgextend
+.bgextend{
+	animation-name:bgextendAnimeBase;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+	position: relative;
+	overflow: hidden;
+	opacity:0;
+}
+
+@keyframes bgextendAnimeBase{
+    from {
+    opacity:0;
+}
+
+    to {
+    opacity:1;  
+}
+}
+
+.bgappear{
+
+	animation-name:bgextendAnimeSecond;
+	animation-duration:1s;
+	animation-delay: 0.6s;
+	animation-fill-mode:forwards;
+	opacity: 0;
+}
+
+@keyframes bgextendAnimeSecond{
+	0% {
+	opacity: 0;
+	}
+	100% {
+	opacity: 1;
+}
+}
+.bgLRextend::before{
+	animation-name:bgLRextendAnime;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #666;
+}
+@keyframes bgLRextendAnime{
+	0% {
+		transform-origin:left;
+		transform:scaleX(0);
+	}
+	50% {
+		transform-origin:left;
+		transform:scaleX(1);
+	}
+	50.001% {
+		transform-origin:right;
+	}
+	100% {
+		transform-origin:right;
+		transform:scaleX(0);
+	}
+}
+// flipLeft
+.flip {
+    transform: translate3d(0,0,0);
+}
+.flipLeftTop {
+    animation-name: flipLeftTopAnime;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+@keyframes flipLeftTopAnime {
+    from {
+        transform: translate(-20px,80px) rotate(-15deg);
+        opacity: 0;
+    }
+    to {
+        transform: translate(0,0) rotate(0deg);
+        opacity: 1;
+    }
+}
+.flipLeftTopTrigger {
+    opacity: 0;
+}
