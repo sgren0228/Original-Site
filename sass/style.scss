@@ -490,6 +490,13 @@ img {
                 position: absolute;
                 top: 0;
                 right: 0;
+                @include m.tab {
+                    top: unset;
+                    right: unset;
+                    left: 50%;
+                    transform: translate(-50%);
+                    margin-top: 10px;
+                }
             }
         }
         .flex-item {
