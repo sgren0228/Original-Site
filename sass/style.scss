@@ -506,10 +506,18 @@ img {
                 font-weight: bold;
                 display: flex;
                 margin-bottom: 80px;
+                @include m.tab {
+                    flex-wrap: wrap;
+                }
                 li {
                     margin-right: 24px;
                     &:last-of-type {
                         margin-right: 0;
+                    }
+                    @include m.tab {
+                        width: 33%;
+                        margin-right: 0;
+                        margin-bottom: 10px;
                     }
                 }
                 a {
@@ -527,6 +535,9 @@ img {
         font-size: 0.875rem;
         text-align: right;
         margin: 0 150px 20px;
+        @include m.tab {
+            text-align: center;
+        }
     }   
 }
 

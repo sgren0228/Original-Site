@@ -604,11 +604,24 @@ img {
   display: flex;
   margin-bottom: 80px;
 }
+@media screen and (max-width: 768px) {
+  #contact .contact-content .flex-item .menu {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+}
 #contact .contact-content .flex-item .menu li {
   margin-right: 24px;
 }
 #contact .contact-content .flex-item .menu li:last-of-type {
   margin-right: 0;
+}
+@media screen and (max-width: 768px) {
+  #contact .contact-content .flex-item .menu li {
+    width: 33%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
 #contact .contact-content .flex-item .menu a {
   color: #333;
@@ -619,6 +632,11 @@ img {
   font-size: 0.875rem;
   text-align: right;
   margin: 0 150px 20px;
+}
+@media screen and (max-width: 768px) {
+  #footer .copyright {
+    text-align: center;
+  }
 }
 
 .fadeIn {
